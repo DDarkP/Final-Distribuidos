@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Administrador de Área - Paz y Salvo</title>
+  <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+  <script src="funciones.js" defer></script>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+  <h2>Administrador de Área - Paz y Salvo</h2>
+
+  <h3>Seleccione su área de administración:</h3>
+  <select id="areaSelect">
+    <option value="" selected disabled>-- Seleccione un área --</option>
+    <option value="financiera">Financiera</option>
+    <option value="laboratorios">Laboratorios</option>
+    <option value="deportes">Deportes</option>
+  </select>
+  <button id="btnConectar" onclick="conectar()">Conectar</button>
+  <button id="btnDesconectar" onclick="desconectar()" disabled>Desconectar</button>
+
+  <div id="notificaciones">
+    <p><em>Aquí aparecerán las notificaciones...</em></p>
+  </div>
+
+</body>
+</html>

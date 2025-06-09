@@ -1,0 +1,239 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 67108864 bytes. Error detail: G1 virtual space
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_windows.cpp:3686), pid=13764, tid=12468
+#
+# JRE version:  (21.0.7+6) (build )
+# Java VM: OpenJDK 64-Bit Server VM (21.0.7+6-LTS, mixed mode, emulated-client, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:TieredStopAtLevel=1 co.edu.unicauca.laboratorio_service.LaboratorioServiceApplication
+
+Host: Intel(R) Core(TM) i3-2120 CPU @ 3.30GHz, 4 cores, 3G,  Windows 10 , 64 bit Build 19041 (10.0.19041.5794)
+Time: Sat Jun  7 23:40:41 2025 Hora est. Pacífico, Sudamérica elapsed time: 0.043832 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000022de78e9f70):  JavaThread "Unknown thread" [_thread_in_vm, id=12468, stack(0x0000003b78100000,0x0000003b78200000) (1024K)]
+
+Stack: [0x0000003b78100000,0x0000003b78200000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6ce119]
+V  [jvm.dll+0x8a84a1]
+V  [jvm.dll+0x8aa9ce]
+V  [jvm.dll+0x8ab0b3]
+V  [jvm.dll+0x27f8a6]
+V  [jvm.dll+0x6ca945]
+V  [jvm.dll+0x6bebea]
+V  [jvm.dll+0x355eca]
+V  [jvm.dll+0x35da96]
+V  [jvm.dll+0x3af72e]
+V  [jvm.dll+0x3af9d8]
+V  [jvm.dll+0x32a05c]
+V  [jvm.dll+0x32abbb]
+V  [jvm.dll+0x871719]
+V  [jvm.dll+0x3bc501]
+V  [jvm.dll+0x85a743]
+V  [jvm.dll+0x45080e]
+V  [jvm.dll+0x452451]
+C  [jli.dll+0x5278]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17374]
+C  [ntdll.dll+0x4cc91]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007fff3f75a0c8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+  0x0000022de9b36ba0 WorkerThread "GC Thread#0"                     [id=7720, stack(0x0000003b78200000,0x0000003b78300000) (1024K)]
+  0x0000022de9b3f710 ConcurrentGCThread "G1 Main Marker"            [id=6616, stack(0x0000003b78300000,0x0000003b78400000) (1024K)]
+  0x0000022de9b401d0 WorkerThread "G1 Conc#0"                       [id=6556, stack(0x0000003b78400000,0x0000003b78500000) (1024K)]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff3ee5c987]
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007fff3f7ce408] Heap_lock - owner thread: 0x0000022de78e9f70
+
+Heap address: 0x00000000c1400000, size: 1004 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 12 size 40 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+Heap:
+ garbage-first heap   total 0K, used 0K [0x00000000c1400000, 0x0000000100000000)
+  region size 1024K, 0 young (0K), 0 survivors (0K)
+
+[error occurred during error reporting (printing heap information), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fff3f247949]
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.017 Loaded shared library C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6091b0000 - 0x00007ff6091be000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\java.exe
+0x00007fff88d30000 - 0x00007fff88f28000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007fff88a70000 - 0x00007fff88b32000 	C:\Windows\System32\KERNEL32.DLL
+0x00007fff86500000 - 0x00007fff867f6000 	C:\Windows\System32\KERNELBASE.dll
+0x00007fff86be0000 - 0x00007fff86ce0000 	C:\Windows\System32\ucrtbase.dll
+0x00007fff74ad0000 - 0x00007fff74aee000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\VCRUNTIME140.dll
+0x00007fff74f40000 - 0x00007fff74f58000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\jli.dll
+0x00007fff86ea0000 - 0x00007fff8703d000 	C:\Windows\System32\USER32.dll
+0x00007fff86bb0000 - 0x00007fff86bd2000 	C:\Windows\System32\win32u.dll
+0x00007fff78ba0000 - 0x00007fff78e3a000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.5794_none_60bcd33171f2783c\COMCTL32.dll
+0x00007fff87c10000 - 0x00007fff87c3b000 	C:\Windows\System32\GDI32.dll
+0x00007fff88970000 - 0x00007fff88a0e000 	C:\Windows\System32\msvcrt.dll
+0x00007fff869f0000 - 0x00007fff86b0a000 	C:\Windows\System32\gdi32full.dll
+0x00007fff86b10000 - 0x00007fff86bad000 	C:\Windows\System32\msvcp_win.dll
+0x00007fff87e00000 - 0x00007fff87e2f000 	C:\Windows\System32\IMM32.DLL
+0x00007fff82700000 - 0x00007fff8270c000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\vcruntime140_1.dll
+0x00007fff47550000 - 0x00007fff475dd000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\msvcp140.dll
+0x00007fff3eb20000 - 0x00007fff3f8b0000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\server\jvm.dll
+0x00007fff887f0000 - 0x00007fff8889f000 	C:\Windows\System32\ADVAPI32.dll
+0x00007fff88110000 - 0x00007fff881af000 	C:\Windows\System32\sechost.dll
+0x00007fff87f20000 - 0x00007fff88043000 	C:\Windows\System32\RPCRT4.dll
+0x00007fff863d0000 - 0x00007fff863f7000 	C:\Windows\System32\bcrypt.dll
+0x00007fff87e30000 - 0x00007fff87e9b000 	C:\Windows\System32\WS2_32.dll
+0x00007fff791a0000 - 0x00007fff791c7000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007fff79ae0000 - 0x00007fff79aea000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007fff86230000 - 0x00007fff8627b000 	C:\Windows\SYSTEM32\POWRPROF.dll
+0x00007fff86210000 - 0x00007fff86222000 	C:\Windows\SYSTEM32\UMPDC.dll
+0x00007fff84270000 - 0x00007fff84282000 	C:\Windows\SYSTEM32\kernel.appcore.dll
+0x00007fff7e6d0000 - 0x00007fff7e6da000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\jimage.dll
+0x00007fff79200000 - 0x00007fff79401000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007fff73e90000 - 0x00007fff73ec4000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007fff86960000 - 0x00007fff869e2000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007fff71950000 - 0x00007fff7196f000 	C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.5794_none_60bcd33171f2783c;C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin\server
+
+VM Arguments:
+jvm_args: -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8 -XX:TieredStopAtLevel=1 
+java_command: co.edu.unicauca.laboratorio_service.LaboratorioServiceApplication
+java_class_path (initial): C:\Users\Armero\Documents\FinalDistribuidos\laboratorio_service\target\classes;C:\Users\Armero\.m2\repository\org\springframework\spring-aop\6.1.21-SNAPSHOT\spring-aop-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\aspectj\aspectjweaver\1.9.24\aspectjweaver-1.9.24.jar;C:\Users\Armero\.m2\repository\com\zaxxer\HikariCP\5.1.0\HikariCP-5.1.0.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-jdbc\6.1.21-SNAPSHOT\spring-jdbc-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\hibernate\orm\hibernate-core\6.5.3.Final\hibernate-core-6.5.3.Final.jar;C:\Users\Armero\.m2\repository\jakarta\persistence\jakarta.persistence-api\3.1.0\jakarta.persistence-api-3.1.0.jar;C:\Users\Armero\.m2\repository\jakarta\transaction\jakarta.transaction-api\2.0.1\jakarta.transaction-api-2.0.1.jar;C:\Users\Armero\.m2\repository\org\jboss\logging\jboss-logging\3.5.3.Final\jboss-logging-3.5.3.Final.jar;C:\Users\Armero\.m2\repository\org\hibernate\common\hibernate-commons-annotations\6.0.6.Final\hibernate-commons-annotations-6.0.6.Final.jar;C:\Users\Armero\.m2\repository\io\smallrye\jandex\3.1.2\jandex-3.1.2.jar;C:\Users\Armero\.m2\repository\com\fasterxml\classmate\1.7.0\classmate-1.7.0.jar;C:\Users\Armero\.m2\repository\net\bytebuddy\byte-buddy\1.14.19\byte-buddy-1.14.19.jar;C:\Users\Armero\.m2\repository\org\glassfish\jaxb\jaxb-runtime\4.0.5\jaxb-runtime-4.0.5.jar;C:\Users\Armero\.m2\repository\org\glassfish\jaxb\jaxb-core\4.0.5\jaxb-core-4.0.5.jar;C:\Users\Armero\.m2\repository\org\glassfish\jaxb\txw2\4.0.5\txw2-4.0.5.jar;C:\Users\Armero\.m2\repository\com\sun\istack\istack-commons-runtime\4.1.2\istack-commons-runtime-4.1.2.jar;C:\Users\Armero\.m2\repository\jakarta\inject\jakarta.inject-api\2.0.1\jakarta.inject-api-2.0.1.jar;C:\Users\Armero\.m2\repository\org\antlr\antlr4-runtime\4.13.0\antlr4-runtime-4.13.0.jar;C:\Users\Armero\.m2\repository\org\springframework\data\spring-data-jpa\3.3.13-SNAPSHOT\spring-data-jpa-3.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\data\spring-data-commons\3.3.13-SNAPSHOT\spring-data-commons-3.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-orm\6.1.21-SNAPSHOT\spring-orm-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-context\6.1.21-SNAPSHOT\spring-context-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-tx\6.1.21-SNAPSHOT\spring-tx-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-beans\6.1.21-SNAPSHOT\spring-beans-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\jakarta\annotation\jakarta.annotation-api\2.1.1\jakarta.annotation-api-2.1.1.jar;C:\Users\Armero\.m2\repository\org\slf4j\slf4j-api\2.0.17\slf4j-api-2.0.17.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-aspects\6.1.21-SNAPSHOT\spring-aspects-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\data\spring-data-rest-webmvc\4.3.13-SNAPSHOT\spring-data-rest-webmvc-4.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\data\spring-data-rest-core\4.3.13-SNAPSHOT\spring-data-rest-core-4.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\hateoas\spring-hateoas\2.3.4\spring-hateoas-2.3.4.jar;C:\Users\Armero\.m2\repository\org\springframework\plugin\spring-plugin-core\3.0.0\spring-plugin-core-3.0.0.jar;C:\Users\Armero\.m2\repository\org\atteo\evo-inflector\1.3\evo-inflector-1.3.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.17.3\jackson-databind-2.17.3.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.17.3\jackson-core-2.17.3.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.17.3\jackson-annotations-2.17.3.jar;C:\Users\Armero\.m2\repository\ch\qos\logback\logback-classic\1.5.18\logback-classic-1.5.18.jar;C:\Users\Armero\.m2\repository\ch\qos\logback\logback-core\1.5.18\logback-core-1.5.18.jar;C:\Users\Armero\.m2\repository\org\apache\logging\log4j\log4j-to-slf4j\2.23.1\log4j-to-slf4j-2.23.1.jar;C:\Users\Armero\.m2\repository\org\apache\logging\log4j\log4j-api\2.23.1\log4j-api-2.23.1.jar;C:\Users\Armero\.m2\repository\org\slf4j\jul-to-slf4j\2.0.17\jul-to-slf4j-2.0.17.jar;C:\Users\Armero\.m2\repository\org\yaml\snakeyaml\2.2\snakeyaml-2.2.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jdk8\2.17.3\jackson-datatype-jdk8-2.17.3.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\datatype\jackson-datatype-jsr310\2.17.3\jackson-datatype-jsr310-2.17.3.jar;C:\Users\Armero\.m2\repository\com\fasterxml\jackson\module\jackson-module-parameter-names\2.17.3\jackson-module-parameter-names-2.17.3.jar;C:\Users\Armero\.m2\repository\org\apache\tomcat\embed\tomcat-embed-core\10.1.41\tomcat-embed-core-10.1.41.jar;C:\Users\Armero\.m2\repository\org\apache\tomcat\embed\tomcat-embed-el\10.1.41\tomcat-embed-el-10.1.41.jar;C:\Users\Armero\.m2\repository\org\apache\tomcat\embed\tomcat-embed-websocket\10.1.41\tomcat-embed-websocket-10.1.41.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-web\6.1.21-SNAPSHOT\spring-web-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\io\micrometer\micrometer-observation\1.13.15-SNAPSHOT\micrometer-observation-1.13.15-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\io\micrometer\micrometer-commons\1.13.15-SNAPSHOT\micrometer-commons-1.13.15-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-webmvc\6.1.21-SNAPSHOT\spring-webmvc-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-expression\6.1.21-SNAPSHOT\spring-expression-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\com\sun\xml\messaging\saaj\saaj-impl\3.0.4\saaj-impl-3.0.4.jar;C:\Users\Armero\.m2\repository\jakarta\xml\soap\jakarta.xml.soap-api\3.0.2\jakarta.xml.soap-api-3.0.2.jar;C:\Users\Armero\.m2\repository\org\jvnet\staxex\stax-ex\2.1.0\stax-ex-2.1.0.jar;C:\Users\Armero\.m2\repository\jakarta\activation\jakarta.activation-api\2.1.3\jakarta.activation-api-2.1.3.jar;C:\Users\Armero\.m2\repository\org\eclipse\angus\angus-activation\2.0.2\angus-activation-2.0.2.jar;C:\Users\Armero\.m2\repository\jakarta\xml\ws\jakarta.xml.ws-api\4.0.2\jakarta.xml.ws-api-4.0.2.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-oxm\6.1.21-SNAPSHOT\spring-oxm-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\ws\spring-ws-core\4.0.15-SNAPSHOT\spring-ws-core-4.0.15-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\ws\spring-xml\4.0.15-SNAPSHOT\spring-xml-4.0.15-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-messaging\6.1.21-SNAPSHOT\spring-messaging-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-websocket\6.1.21-SNAPSHOT\spring-websocket-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\boot\spring-boot-devtools\3.3.13-SNAPSHOT\spring-boot-devtools-3.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\boot\spring-boot\3.3.13-SNAPSHOT\spring-boot-3.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\boot\spring-boot-autoconfigure\3.3.13-SNAPSHOT\spring-boot-autoconfigure-3.3.13-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\com\jayway\jsonpath\json-path\2.9.0\json-path-2.9.0.jar;C:\Users\Armero\.m2\repository\jakarta\xml\bind\jakarta.xml.bind-api\4.0.2\jakarta.xml.bind-api-4.0.2.jar;C:\Users\Armero\.m2\repository\net\minidev\json-smart\2.5.2\json-smart-2.5.2.jar;C:\Users\Armero\.m2\repository\net\minidev\accessors-smart\2.5.2\accessors-smart-2.5.2.jar;C:\Users\Armero\.m2\repository\org\ow2\asm\asm\9.7.1\asm-9.7.1.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-core\6.1.21-SNAPSHOT\spring-core-6.1.21-SNAPSHOT.jar;C:\Users\Armero\.m2\repository\org\springframework\spring-jcl\6.1.21-SNAPSHOT\spring-jcl-6.1.21-SNAPSHOT.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 67108864                                  {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1052770304                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 4096                                   {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 0                                      {pd product} {ergonomic}
+     bool ProfileInterpreter                       = false                                  {pd product} {command line}
+    uintx ProfiledCodeHeapSize                     = 0                                      {pd product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 1052770304                             {manageable} {ergonomic}
+     intx TieredStopAtLevel                        = 1                                         {product} {command line}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+JAVA_HOME=C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21
+JAVA_TOOL_OPTIONS=-Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8
+PATH=C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\gradle\latest\bin;C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\maven\latest\bin;C:\Users\Armero\AppData\Roaming\Code\User\globalStorage\pleiades.java-extension-pack-jdk\java\21\bin;C:\Program Files (x86)\VMware\VMware Workstation\bin\;C:\Program Files\BellSoft\LibericaJDK-17\bin\;C:\msys64\mingw64\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\Microsoft SQL Server\150\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\maven\bin;C:\Users\Armero\AppData\Local\Microsoft\WindowsApps;C:\Users\Armero\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Armero\.dotnet\tools;C:\Program Files\JetBrains\IntelliJ IDEA 2024.2.1\bin;
+USERNAME=Armero
+LANG=en_US.UTF-8
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 42 Stepping 7, GenuineIntel
+TMP=C:\Users\Armero\AppData\Local\Temp
+TEMP=C:\Users\Armero\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.5794)
+OS uptime: 0 days 0:48 hours
+
+CPU: total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 42 stepping 7 microcode 0x2f, cx8, cmov, fxsr, ht, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, tsc, tscinvbit, avx, clmul, vzeroupper, clflush, rdtscp
+Processor Information for the first 4 processors :
+  Max Mhz: 3300, Current Mhz: 3300, Mhz Limit: 3300
+
+Memory: 4k page, system-wide physical 4008M (327M free)
+TotalPageFile size 16296M (AvailPageFile size 7M)
+current process WorkingSet (physical memory assigned to process): 9M, peak: 9M
+current process commit charge ("private bytes"): 46M, peak: 110M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.7+6-LTS) for windows-amd64 JRE (21.0.7+6-LTS), built on 2025-04-15T00:00:00Z by "admin" with MS VC++ 17.7 (VS2022)
+
+END.
