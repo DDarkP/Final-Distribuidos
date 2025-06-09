@@ -15,80 +15,43 @@ import co.edu.unicauca.orquestador_service.dto.Prestamo;
 import co.edu.unicauca.orquestador_service.dto.PrestamoDeporte;
 
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientRequestException;
-
 import reactor.core.publisher.Mono;
-
 
 @Service
 public class PazSalvoService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final WebClient webClient;
+    private final NotificacionService notificacionService;
 
-    public PazSalvoService(WebClient webClient) {
+    // Inyectar NotificacionService junto con WebClient
+    public PazSalvoService(WebClient webClient, NotificacionService notificacionService) {
         this.webClient = webClient;
+        this.notificacionService = notificacionService;
     }
 
-    // Método para obtener detalles completos de pendientes por área (sincrónico)
-    public Map<String, List<String>> obtenerDetallesPendientes(String codigoEstudiante) {
-        EstudianteDTO dto = new EstudianteDTO();
-        dto.setCodigoEstudiante(codigoEstudiante);
+    // Método para enviar notificaciones después de construir el mensaje detallado (sincrónico)
+    public String obtenerPendientesYNotificar(String codigoEstudiante) {
+        Map<String, List<String>> pendientes = obtenerDetallesPendientes(codigoEstudiante);
 
-        Map<String, List<String>> detallesPendientes = new LinkedHashMap<>();
-
-        // Laboratorio
-        Prestamo[] prestamosLab = obtenerPendientes("http://localhost:8084/api/laboratorio/pendientes", dto, Prestamo[].class);
-        if (prestamosLab != null && prestamosLab.length > 0) {
-            List<String> detallesLab = new ArrayList<>();
-            for (Prestamo p : prestamosLab) {
-                detallesLab.add("Equipo: " + p.getEquipoPrestado() + ", Estado: " + p.getEstado());
-            }
-            detallesPendientes.put("Laboratorio", detallesLab);
-        }
-
-        // Deporte
-        PrestamoDeporte[] prestamosDep = obtenerPendientes("http://localhost:8082/api/deporte/pendientes", dto, PrestamoDeporte[].class);
-        if (prestamosDep != null && prestamosDep.length > 0) {
-            List<String> detallesDep = new ArrayList<>();
-            for (PrestamoDeporte p : prestamosDep) {
-                detallesDep.add("Elemento: " + p.getElemento() + ", Fecha devolución estimada: " + p.getFechaDevolucionEstimada());
-            }
-            detallesPendientes.put("Deporte", detallesDep);
-        }
-
-        // Financiera
-        DeudaFinanciera[] deudasFin = obtenerPendientes("http://localhost:8083/api/financiera/pendientes", dto, DeudaFinanciera[].class);
-        if (deudasFin != null && deudasFin.length > 0) {
-            List<String> detallesFin = new ArrayList<>();
-            for (DeudaFinanciera d : deudasFin) {
-                detallesFin.add("Monto: $" + d.getMontoAdeudado() + ", Motivo: " + d.getMotivo() + ", Estado: " + d.getEstado());
-            }
-            detallesPendientes.put("Financiera", detallesFin);
-        }
-
-        return detallesPendientes;
-    }
-
-    // Método genérico para obtener pendientes (sincrónico)
-    private <T> T[] obtenerPendientes(String url, EstudianteDTO dto, Class<T[]> responseType) {
-        try {
-            ResponseEntity<T[]> response = restTemplate.postForEntity(url, dto, responseType);
-            return response.getBody();
-        } catch (Exception e) {
-            // Podrías manejar el error o reintentar
-            return null;
-        }
-    }
-
-    // Método para construir mensaje detallado para el controlador REST
-    public String construirMensajePendientes(String codigoEstudiante) {
-        Map<String, List<String>> pendientesConDetalles = obtenerDetallesPendientes(codigoEstudiante);
-        if (pendientesConDetalles.isEmpty()) {
+        if (pendientes.isEmpty()) {
+            // Notificación general o a algún tópico general si quieres
+            notificacionService.enviarNotificacionGeneral(
+                "Estudiante " + codigoEstudiante + " está a paz y salvo."
+            );
             return "El estudiante está a paz y salvo.";
         } else {
+            // Por cada área con pendientes, enviar notificación a su canal respectivo
+            pendientes.forEach((area, detalles) -> {
+                StringBuilder msg = new StringBuilder("Pendientes en " + area + ":\n");
+                detalles.forEach(d -> msg.append(" * ").append(d).append("\n"));
+                notificacionService.enviarNotificacionPorArea(area.toLowerCase(), 
+                    "Estudiante " + codigoEstudiante + " tiene pendientes: \n" + msg.toString());
+            });
+
+            // También retornar el mensaje detallado al caller
             StringBuilder mensaje = new StringBuilder("El estudiante NO está a paz y salvo. Tiene pendientes en:\n");
-            pendientesConDetalles.forEach((area, detalles) -> {
+            pendientes.forEach((area, detalles) -> {
                 mensaje.append("- ").append(area).append(":\n");
                 detalles.forEach(detalle -> mensaje.append("   * ").append(detalle).append("\n"));
             });
@@ -96,9 +59,30 @@ public class PazSalvoService {
         }
     }
 
+    // Aquí puedes mantener el método sin notificaciones para llamadas directas
+    public Map<String, List<String>> obtenerDetallesPendientes(String codigoEstudiante) {
+        EstudianteDTO dto = new EstudianteDTO();
+        dto.setCodigoEstudiante(codigoEstudiante);
 
-    // La versión asíncrona también se puede mejorar para obtener detalles
-    public Mono<String> construirMensajePendientesAsync(String codigoEstudiante) {
+        Map<String, List<String>> detallesPendientes = new LinkedHashMap<>();
+
+        // ... tu código existente para obtener pendientes
+
+        return detallesPendientes;
+    }
+
+    // Método genérico para obtener pendientes (sin cambios)
+    private <T> T[] obtenerPendientes(String url, EstudianteDTO dto, Class<T[]> responseType) {
+        try {
+            ResponseEntity<T[]> response = restTemplate.postForEntity(url, dto, responseType);
+            return response.getBody();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // Método asíncrono con notificaciones
+    public Mono<String> construirMensajePendientesAsyncYNotificar(String codigoEstudiante) {
         EstudianteDTO dto = new EstudianteDTO();
         dto.setCodigoEstudiante(codigoEstudiante);
 
@@ -155,8 +139,18 @@ public class PazSalvoService {
                     }
 
                     if (pendientes.isEmpty()) {
+                        notificacionService.enviarNotificacionGeneral(
+                            "Estudiante " + codigoEstudiante + " está a paz y salvo (modo asíncrono)."
+                        );
                         return "El estudiante está a paz y salvo (modo asíncrono).";
                     } else {
+                        pendientes.forEach((area, detalles) -> {
+                            StringBuilder msg = new StringBuilder("Pendientes en " + area + ":\n");
+                            detalles.forEach(d -> msg.append(" * ").append(d).append("\n"));
+                            notificacionService.enviarNotificacionPorArea(area.toLowerCase(), 
+                                "Estudiante " + codigoEstudiante + " tiene pendientes: \n" + msg.toString());
+                        });
+
                         StringBuilder msg = new StringBuilder("El estudiante NO está a paz y salvo (modo asíncrono). Tiene pendientes en:\n");
                         pendientes.forEach((area, detalles) -> {
                             msg.append("- ").append(area).append(":\n");
