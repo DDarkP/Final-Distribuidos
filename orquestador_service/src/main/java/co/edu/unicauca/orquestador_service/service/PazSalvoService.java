@@ -77,7 +77,7 @@ public class PazSalvoService {
         if (deudas != null && deudas.length > 0) {
             List<String> detallesFin = new ArrayList<>();
             for (DeudaFinanciera d : deudas) {
-                detallesFin.add("Monto: $" + d.getMontoAdeudado() + ", Motivo: " + d.getMotivo() + ", Estado: "
+                detallesFin.add("Motivo: " + d.getMotivo() + ", Estado: "
                         + d.getEstado());
             }
             pendientes.put("Financiera", detallesFin);
@@ -122,33 +122,6 @@ public class PazSalvoService {
         }
         return null; // Se interpretará como error grave o falla de comunicación
     }
-
-    // método sin notificaciones para llamadas directas
-    // public Map<String, List<String>> obtenerDetallesPendientes(String
-    // codigoEstudiante) {
-    // EstudianteDTO dto = new EstudianteDTO();
-    // dto.setCodigoEstudiante(codigoEstudiante);
-
-    // Map<String, List<String>> detallesPendientes = new LinkedHashMap<>();
-
-    // Prestamo[] prestamosLab =
-    // obtenerPendientes("http://localhost:8084/api/laboratorio/pendientes", dto,
-    // Prestamo[].class);
-    // if (prestamosLab != null && prestamosLab.length > 0) {
-    // List<String> labDetalles = new ArrayList<>();
-    // for (Prestamo p : prestamosLab) {
-    // labDetalles.add("Equipo: " + p.getEquipoPrestado() + ", Estado: " +
-    // p.getEstado());
-    // }
-    // detallesPendientes.put("Laboratorios", labDetalles);
-    // }
-
-    // // Repite para deporte y financiera si los estás llamando sincrónicamente
-    // igual
-    // // ...
-
-    // return detallesPendientes;
-    // }
 
     // Método genérico para obtener pendientes (sin cambios)
     private <T> T[] obtenerPendientes(String url, EstudianteDTO dto, Class<T[]> responseType) {
@@ -249,7 +222,7 @@ public class PazSalvoService {
                     if (resultados.getT3().length > 0) {
                         List<String> detallesFin = new ArrayList<>();
                         for (DeudaFinanciera d : resultados.getT3()) {
-                            detallesFin.add("Monto: $" + d.getMontoAdeudado() + ", Motivo: " + d.getMotivo()
+                            detallesFin.add("Motivo: " + d.getMotivo()
                                     + ", Estado: " + d.getEstado());
                         }
                         pendientes.put("Financiera", detallesFin);
