@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,10 +30,24 @@ public class DeporteController {
     }
 
     @PostMapping("/pendientes")
-    public List<PendienteDeporteDTO> obtenerPendientes(@RequestBody SolicitudDTO solicitud) {
-        return servicio.consultarPendientes(solicitud.getCodigoEstudiante());
-    }
+    public ResponseEntity<?> obtenerPendientes(@RequestBody SolicitudDTO solicitud) {
+        String codigo = solicitud.getCodigoEstudiante();
 
+        if (codigo == null || codigo.isBlank()) {
+            return ResponseEntity.badRequest().body("El código del estudiante es obligatorio.");
+        }
+
+        // Validar si el estudiante existe (es decir, si tiene algún préstamo registrado)
+        boolean existe = servicio.existeEstudiante(codigo);
+        if (!existe) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Estudiante no registrado en DeporteService.");
+        }
+
+        // Consultar y devolver los pendientes
+        List<PendienteDeporteDTO> pendientes = servicio.consultarPendientes(codigo);
+        return ResponseEntity.ok(pendientes);
+    }
 
     @DeleteMapping("/pendientes")
     public Map<String, String> eliminarPendientes(@RequestBody SolicitudDTO solicitud) {
@@ -39,4 +55,3 @@ public class DeporteController {
         return Map.of("mensaje", "Implementos eliminados con éxito");
     }
 }
-

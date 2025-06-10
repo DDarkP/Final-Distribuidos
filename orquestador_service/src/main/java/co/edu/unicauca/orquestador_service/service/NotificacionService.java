@@ -19,6 +19,6 @@ public class NotificacionService {
     }
 
     public void enviarNotificacionPorArea(String area, String mensaje) {
-        messagingTemplate.convertAndSend("/notificaciones/admin_" + area, mensaje);
+        messagingTemplate.convertAndSend("/notificaciones/" + area, mensaje); // 👈 Así
     }
 }

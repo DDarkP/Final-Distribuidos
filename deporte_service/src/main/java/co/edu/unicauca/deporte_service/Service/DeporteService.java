@@ -33,5 +33,9 @@ public class DeporteService {
     public void eliminarPendientes(String codigoEstudiante) {
         repo.eliminarPendientes(codigoEstudiante);
     }
-}
 
+    public boolean existeEstudiante(String codigoEstudiante) {
+        return repo.estudianteRegistrado(codigoEstudiante);
+    }
+
+}

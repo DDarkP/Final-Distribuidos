@@ -11,7 +11,7 @@ public class Deuda {
     private String motivo;
     private LocalDate fechaGeneracion;
     private LocalDate fechaLimite;
-    private String estado; // "pendiente", "pagada", "en mora"
+    private String estado; // "pendiente", "pagada"
 
     public Deuda(String codigoEstudiante, double monto, String motivo, LocalDate fechaGeneracion, LocalDate fechaLimite, String estado) {
         this.codigoEstudiante = codigoEstudiante;

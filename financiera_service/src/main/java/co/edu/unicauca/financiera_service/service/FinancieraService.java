@@ -20,7 +20,16 @@ public class FinancieraService {
     }
 
     public List<DeudaDTO> obtenerPendientes(String codigoEstudiante) {
-        return repo.obtenerDeudasPendientes(codigoEstudiante).stream().map(deuda -> {
+        var deudas = repo.obtenerDeudasPendientes(codigoEstudiante);
+
+        // Si no hay deudas y tampoco hay historial de ese estudiante, retornamos null
+        boolean existeHistorial = repo.existeEstudiante(codigoEstudiante);
+
+        if (!existeHistorial) {
+            return null; // Esto lo usaremos para devolver un 404 más arriba
+        }
+
+        return deudas.stream().map(deuda -> {
             DeudaDTO dto = new DeudaDTO();
             dto.setMonto(deuda.getMonto());
             dto.setMotivo(deuda.getMotivo());

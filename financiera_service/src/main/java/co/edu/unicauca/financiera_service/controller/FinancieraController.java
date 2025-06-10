@@ -1,8 +1,10 @@
 package co.edu.unicauca.financiera_service.controller;
+
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +28,20 @@ public class FinancieraController {
         this.service = service;
     }
 
+    // @PostMapping("/pendientes")
+    // public List<DeudaDTO> obtenerPendientes(@RequestBody EstudianteDTO dto) {
+    // return service.obtenerPendientes(dto.getCodigoEstudiante());
+    // }
     @PostMapping("/pendientes")
-    public List<DeudaDTO> obtenerPendientes(@RequestBody EstudianteDTO dto) {
-        return service.obtenerPendientes(dto.getCodigoEstudiante());
+    public ResponseEntity<?> obtenerPendientes(@RequestBody EstudianteDTO dto) {
+        var resultado = service.obtenerPendientes(dto.getCodigoEstudiante());
+
+        if (resultado == null) {
+            return ResponseEntity.status(404).body(Map.of(
+                    "mensaje", "El estudiante no está registrado en el sistema financiero."));
+        }
+
+        return ResponseEntity.ok(resultado);
     }
 
     @DeleteMapping("/pendientes")

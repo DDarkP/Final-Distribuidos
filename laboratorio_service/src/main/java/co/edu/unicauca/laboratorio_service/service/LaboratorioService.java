@@ -1,4 +1,5 @@
 package co.edu.unicauca.laboratorio_service.service;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,19 @@ public class LaboratorioService {
     }
 
     public List<Prestamo> obtenerPrestamosPendientes(String codigoEstudiante) {
-        return laboratorioRepository.findByCodigoEstudiante(codigoEstudiante);
+        if (!laboratorioRepository.existeEstudiante(codigoEstudiante)) {
+            return null;
+        }
+
+        return laboratorioRepository.obtenerPendientes(codigoEstudiante);
     }
+
+    // public List<Prestamo> obtenerPrestamosPendientes(String codigoEstudiante) {
+    // return laboratorioRepository.findByCodigoEstudiante(codigoEstudiante);
+    // }
 
     public void eliminarPendientes(String codigoEstudiante) {
         laboratorioRepository.eliminarPrestamos(codigoEstudiante);
     }
+
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 @Data
 public class PrestamoDeporte {
     private String codigoEstudiante;
-    private String elemento;
+    private String implemento;
     private LocalDate fechaPrestamo;
-    private LocalDate fechaDevolucionEstimada;
-    private LocalDate fechaDevolucionReal;
+    private LocalDate fechaEstimada;
+    private LocalDate fechaReal;
 }
